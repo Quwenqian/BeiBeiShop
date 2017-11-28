@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">登录</h1>
+		</header>
+		<div class="mui-content">
+			<span id="msg" style="display: none;"></span>
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input id='account' name="u.userName" type="text" class="mui-input-clear mui-input" placeholder="请输入用户名">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id='password' name="u.password" type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button id='login' onclick="login()" class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+				<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
+				</div>
+			</div>
+			<div class="mui-content-padded oauth-area">
+			</div>
+		</div>
+		
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/default.js"></script>
+		<script type="application/javascript">
+		function login(){
+			var params = $("#login-form").serialize();
+				$.ajax({
+					url:"http://127.0.0.1:8080/Shop/userLogin",
+					type:"POST",
+					data:params,
+					dataType:"json",
+					success:function(data){
+						if(data.msg=="success"){
+							saveUser(data.userData.userId);
+							mui.openWindow("index.html");
+						}
+					}
+				});
+			
+		}
+		</script>
+	</body>
+
+</html>

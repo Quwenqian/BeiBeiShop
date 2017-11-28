@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js" ></script>
+    <script src="js/default.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	
+      	/*classify onclick*/
+      	function showClassifyItem(i){
+      		mui.toast("#?id="+i);
+      	}
+      	function openwindow(){
+      		plus.webview.create('good_detial.html','id',{},{preload:'preload webview'});
+      	}
+      	
+      	$(function(){
+      		var reqURL = hostURL+"/home";
+      		$.ajax({
+					url:reqURL,
+					type:"POST",
+					dataType:"json",
+					success:function(data){
+						var cList = data.classifyList;
+						$.each(cList, function(index,classify) {
+							var textSelr = "#classify_item_"+(index+1)+" .div_text";
+							$(textSelr).text(classify.classifyName);
+						});
+						var newList = data.newGoods;
+						
+						for (var i = 0; i < 4; i++) {
+							$("ul li a").eq(i).attr("href","good_detial.html?gId="+newList[i].goodsId);
+							$("ul li img").eq(i).attr("src",hostURL+newList[i].imageUrl);
+							$("ul li div").eq(i).text("￥"+newList[i].promotionPriceStr+"  "+newList[i].goodsName);
+						}
+						
+					}
+				});
+      		
+      	});
+      	
+    </script>
+</head>
+<body>
+	
+	
+
+	
+		<div class="container">
+			<!-- header div start -->
+			<header class="mui-bar mui-bar-nav">
+		    	<h1 class="mui-title">首页</h1>
+			</header>
+			<!-- header div end -->
+			<!-- content start -->
+			<div class="contentDiv">
+				<!-- classify start -->
+			    
+			    <div id="" class="classify_div">
+			    	<div id="classify_item_1" class="classify_inner_left" onclick="showClassifyItem(1)">
+				    		<div id="" style="width: 100%;height: 70px;margin-top: 20px;float: left;" align="center">
+				    			<img src="images/c1.png" style="width: 50px;height: 60px;"/>
+				    		</div>
+				    		<div id="" style="width: 100%;height: 30px;line-height: 30px;text-align: center;float: left;color: #ffffff;font-size: 16px;">
+				    			母婴用品
+				    		</div>
+				    </div>
+				    <div id="" class="classify_inner_right">
+					    	<div id="classify_item_2" class="classify_div_item classify_div_item_2" onclick="showClassifyItem(2)">
+					    		<div id="" class="div_img">
+					    			<img src="images/c2.png" style="width: 30px;height: 30px;"/>
+					    		</div>
+					    		<div id="" class="div_text">
+					    			奶瓶
+					    		</div>
+					    	</div>
+					    	<div id="classify_item_3" class="classify_div_item classify_div_item_3" onclick="showClassifyItem(3)">
+					    		<div id="" class="div_img" align="center">
+					    			<img  src="images/c3.png" style="width: 32px;height: 30px;"/>
+					    		</div>
+					    		<div id="" class="div_text">
+					    			婴儿床
+					    		</div>
+					    	</div>
+					    	<div id="classify_item_4" class="classify_div_item classify_div_item_4" onclick="showClassifyItem(4)">
+					    		<div id=""  class="div_img">
+					    			<img src="images/c4.png" style="width: 32px;height: 30px;"/>
+					    		</div>
+					    		<div id="" class="div_text">
+					    			婴儿床
+					    		</div>
+					    	</div>
+					    	<div id="classify_item_5" class="classify_div_item classify_div_item_5" onclick="showClassifyItem(5)">
+					    		<div id="" class="div_img" >
+					    			<img src="images/c5.png" style="width: 30px;height: 30px;"/>
+					    		</div>
+					    		<div id="" class="div_text">
+					    			纸尿裤
+					    		</div>
+					    	</div>
+				    </div>
+			    </div>
+			    
+			    
+			    <!-- classify end -->
+			    <!-- new start -->
+			    <div class="newsDiv">
+			    	<h4>新品推荐</h4>
+			    	<img src="images/line_1.png">
+			    	<p>New selling</p>
+			    	<div id="newGoods" class="newGoods">
+			    		<ul class="mui-table-view mui-grid-view new-list">
+			    		    <li class="mui-table-view-cell mui-media mui-col-xs-6">
+			    		        <a href="#">
+			    		            <img class="mui-media-object" >
+			    		            <div class="mui-media-body"></div>
+			    		        </a>
+			    		    </li>
+			    		    <li class="mui-table-view-cell mui-media mui-col-xs-6">
+			    		        <a href="#">
+			    		            <img class="mui-media-object" >
+			    		            <div class="mui-media-body"></div>
+			    		        </a>
+			    		    </li>
+			    		    <li class="mui-table-view-cell mui-media mui-col-xs-6">
+			    		        <a href="#">
+			    		            <img class="mui-media-object">
+			    		            <div class="mui-media-body"></div>
+			    		        </a>
+			    		    </li>
+			    		    <li class="mui-table-view-cell mui-media mui-col-xs-6">
+			    		        <a href="#">
+			    		            <img class="mui-media-object" >
+			    		            <div class="mui-media-body"></div>
+			    		        </a>
+			    		    </li>
+			    		</ul>
+			    		
+			    	</div>
+			    </div>
+			    <!-- new  end -->
+			</div>
+			<!-- content end -->
+		    <!-- bottom nav start -->
+		    <nav class="mui-bar mui-bar-tab mui-bar-footer" id="nav">
+			<a href="javascript:void(0);" class="mui-tab-item mui-active" id="nav1">
+				<span class="mui-icon iconfont icon-shouye"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a href="javascript:void(0);"  class="mui-tab-item" id="nav2">
+				<span class="mui-icon iconfont icon-sousuo1"></span>
+				<span class="mui-tab-label">搜索</span>
+			</a>
+			<a href="javascript:void(0);" class="mui-tab-item " id="nav3">
+				<span class="mui-icon iconfont icon-gouwuche"></span>
+				<span class="mui-tab-label">购物车</span>
+			</a>
+			<a href="javascript:void(0);"   class="mui-tab-item " id="nav4">
+				<span class="mui-icon iconfont icon-wode"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<!-- bottom nav end -->
+		</div>
+		
+		
+		
+		
+</body>
+
+
+</html>
