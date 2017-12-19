@@ -8,6 +8,7 @@ $(function(){
 		dataType:'json',
 		success:function(data){
 			$.each(data.cartList, function(index,item) {
+				
 				//"<li class='mui-table-view-cell mui-media'>"
 				//+item.goodsId+"<input type='hidden' name='goodIds' value='"+item.goodsId+"'/>"+"</li>"
 				$("#dataList").append('<li>'
@@ -15,10 +16,9 @@ $(function(){
 					+'<input type="checkbox" class="check goods-check goodsCheck" name="'+item.good.goodsId+'">'
 					+'<input type="hidden"  value="'+item.good.goodsId+'">'
 					+'<div class="shop-info-img">'
-					+'<a href="#"><img src="upload/computer.jpg" /></a>'
+					+'<a href="#"><img src="'+hostURL+item.good.imageUrl+'" /></a>'
 					+'</div>'
 					+'<div class="shop-info-text">'
-					
 					+'<h4>'+item.good.goodsName+'</h4>'
 					+'<div class="shop-brief"><span>'+item.goodItem.itemName+'</span></div>'
 					+'<div class="shop-price">'
