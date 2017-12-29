@@ -1,4 +1,4 @@
-var hostURL = "http://192.168.0.6:8080/Shop";
+var hostURL = "http://192.168.0.8:8080/Shop";
 
 /* 获取URL中参数 */
 $.extend({
@@ -92,4 +92,37 @@ function shoucang(){
 	$(".shoucang").find('span').removeClass('icon-shoucangxiao1');
 	$('.shoucang').find('span').addClass('icon-shoucangxiao');
 	mui.toast('已收藏');
+}
+/* 订单状态转换 */
+function orderStatue(id){
+	var stateText = '';
+	switch(id) {
+		case 0:
+			stateText = '等待买家付款';
+			break;
+		case 1:
+			stateText = '等待卖家发货';
+			break;
+		case 2:
+			stateText = '卖家已发货';
+			break;
+		case 3:
+			stateText = '已收货';
+			break;
+		case 4:
+			stateText = '退款中';
+			break;
+		case 5:
+			stateText = '已完成';
+			break;
+		case 6:
+			stateText = '已退款';
+			break;
+		case 7:
+			stateText = '交易关闭';
+			break;
+		default:
+			break;
+	}
+	return stateText;
 }

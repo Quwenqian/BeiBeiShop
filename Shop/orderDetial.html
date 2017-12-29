@@ -63,6 +63,7 @@
 				</div>
 				<ul class="mui-table-view" id='goodList'>
 				</ul>
+				<div class="updateStatue"></div>
 			</div>
 			<!-- bottom nav start -->
 		    <nav class="mui-bar mui-bar-tab mui-bar-footer" id="nav">
@@ -91,34 +92,49 @@
 <script type="text/javascript" src="js/default.js" ></script>
 <script type="text/javascript">
 mui.init();
-
-function initOrderDetial(data){
-	var stateText = '';
-	switch (data.order.gorderState){
+function checkText(statueid){
+	var text = '';
+	switch (statueid){
 		case 0:
-			stateText='等待买家付款';
-			break;
-		case 1:
-			stateText='等待卖家发货';
+			text='付款';
 			break;
 		case 2:
-			stateText='卖家已发货';
+			text='确认收货';
 			break;
-		case 3:
-			stateText='已收货';
-			break;
-		case 4:
-			stateText='退款中';
-			break;	
 		default:
+			text='';
 			break;
 	}
+	return text;
+}
+function changeStatue(sid,oid){
+	var oid = oid;
+	$.ajax({
+		url:hostURL+'/orderStatueUpdate',
+		data:'order.gorderId='+oid+'&order.gorderState='+sid,
+		dataType:'text',
+		type:'post',
+		success:function(data){
+			mui.toast(data);
+			//window.location='orderDetial.html?orderId='+oid;
+			location.reload();
+		}
+	});
+}
+
+function initOrderDetial(data){
+	var stateText = orderStatue(data.order.gorderState);
 	$("#orderStatue span").text(stateText);
 	$(".orderDetial").append('<div>订单编号：'+data.order.gorderId+'</div>');
 	$(".orderDetial").append('<div>创建时间：'+JSONDateFormat(data.order.createtime.time)+'</div>');
 	$(".orderDetial").append('<div>收货地址：'+data.order.address.name+'&nbsp;'+data.order.address.tel+'&nbsp;'
 	+data.order.address.province+data.order.address.city
 	+data.order.address.district+data.order.address.detial+'</div>');
+	var text = checkText(data.order.gorderState);
+	if(text!=''){
+		$(".updateStatue").append('<button type="button" class="mui-btn mui-btn-blue" onclick="changeStatue('+(data.order.gorderState+1)+','+data.order.gorderId+')">'+text+'</button>');
+	}
+	
 	$.each(data.detials, function(index,item) {
 		$('#goodList').append('<li class="mui-table-view-cell mui-media">'
 			+'<img class="mui-media-object mui-pull-left" src='+hostURL+item.good.imageUrl+'>'
